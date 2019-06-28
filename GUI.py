@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import filedialog
+from pathlib import Path
 from bs4 import BeautifulSoup as soup
 
 # Variables
