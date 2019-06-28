@@ -22,17 +22,17 @@ def addHeader():
     global button1, row, arr, counter
     if row == 2:
         Label(frame_2, text="Table Headers").grid(row=row, column=0)
-        Label(frame_2, text="Class/id").grid(row=row, column=1)
-        Label(frame_2, text="Name(Class/id)").grid(row=row, column=2)
+        #Label(frame_2, text="Class/id").grid(row=row, column=1)
+        Label(frame_2, text="Class Name").grid(row=row, column=1)
     row += 1
     button1.pack_forget()
     arr[counter][0] = Entry(frame_2)
     arr[counter][0].grid(row=row, column=0)
-    select = ttk.Combobox(frame_2, values=["Class", "ID"])
+    """select = ttk.Combobox(frame_2, values=["Class", "ID"])
     select.grid(row=row, column=1)
-    select.bind("<<ComboboxSelected>>", selected)
+    select.bind("<<ComboboxSelected>>", selected)"""
     arr[counter][1] = Entry(frame_2)
-    arr[counter][1].grid(row=row, column=2)
+    arr[counter][1].grid(row=row, column=1)
     row += 1
     button1.grid(row=row, column=0)
     counter += 1
@@ -50,14 +50,13 @@ def save():
         return None
     else:
         dirPath = dirName
-        print(dirPath)
+        # print(dirPath)
         cwd.destroy()
         Label(frame_5, text=dirPath + "\\").grid(row=0, column=0)
-        export_button.grid(row=1, column=1, pady=10, sticky="E")
 
 
 def addPages():
-    print("Clicked!")
+    # print("Clicked!")
     global check, flag
     if check.get() == TRUE:
         Label(frame_4, text="No. of pages").grid(row=1, column=0)
@@ -87,7 +86,7 @@ def export():
         header[x] = arr[x][0].get()
         class_name[x] = arr[x][1].get()
 
-    print(filepath)
+    # print(filepath)
 
     # Scraping Script
     response = requests.get(url)
@@ -104,7 +103,7 @@ def export():
                                      ).get_text().replace('\u20b9', 'Rs')
             csv_writer.writerow(result)
 
-    print("Exported!")
+    # print("Exported!")
 
 
 # Setting Up Window
@@ -139,11 +138,11 @@ e = Entry(frame_2, state="disabled")
 e.grid(row=1, column=0)
 e.insert(0, "Enclosing <div>")
 # print(e.get())
-select = ttk.Combobox(frame_2, values=["Class", "ID"])
+"""select = ttk.Combobox(frame_2, values=["Class", "ID"])
 select.grid(row=1, column=1)
-select.bind("<<ComboboxSelected>>", selected)
+select.bind("<<ComboboxSelected>>", selected)"""
 enc_div = Entry(frame_2)
-enc_div.grid(row=1, column=2)
+enc_div.grid(row=1, column=1)
 
 
 button1 = Button(frame_2, text='Add Header', width=10, command=addHeader)
@@ -159,9 +158,11 @@ page.grid(row=0, column=0, sticky="w")
 cwd = Label(frame_5, text=dirPath+"\\")
 cwd.grid(row=0, column=0)
 filename = Entry(frame_5)
+filename.insert(END, 'Default')
 filename.grid(row=0, column=1)
 Label(frame_5, text=".csv").grid(row=0, column=2)
 export_button = Button(frame_5, text="Export as CSV", command=export)
+export_button.grid(row=1, column=1, pady=10, sticky="E")
 select_button = Button(frame_5, text="Select Folder", command=save)
 select_button.grid(row=1, column=0, pady=10, sticky="E")
 
